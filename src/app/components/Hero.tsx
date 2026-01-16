@@ -187,7 +187,7 @@ export function Hero() {
                 }}
               />
               <ImageWithFallback
-                src="./images/afreen_portfolio_blue.png"
+                src="./images/afreen-portfolio.png"
                 alt="Professional Developer"
                 className="relative z-10 w-full h-full rounded-full object-cover border-4 border-foreground/10"
               />

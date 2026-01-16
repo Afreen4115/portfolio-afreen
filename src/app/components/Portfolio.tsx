@@ -5,107 +5,6 @@ import { ExternalLink, Github, Filter } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import React from "react";
 
-
-
-function ProjectCard({ project, index }: { project: any; index: number }) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      className="group relative bg-gradient-to-br from-surface/5 to-surface/[0.02] backdrop-blur-sm rounded-2xl overflow-hidden border border-border hover:border-foreground/20 transition-all"
-    >
-      {/* Image Container */}
-      <div className="relative h-64 overflow-hidden">
-        <motion.div
-          animate={{ scale: isHovered ? 1.1 : 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <ImageWithFallback
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
-        </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-
-        {/* Category Badge */}
-        <div className="absolute top-4 right-4">
-          <span className="px-3 py-1 bg-[#0d9488] backdrop-blur-sm rounded-full border border-white/10 text-sm text-white">
-            {project.category === "professional" ? "Professional" : "Personal"}
-          </span>
-        </div>
-
-        {/* Quick Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
-          className="absolute top-4 left-4 flex gap-2"
-        >
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-[#1e293b] backdrop-blur-sm rounded-lg border border-white/10 hover:bg-[#1e293b]/90 transition-colors"
-            >
-              <ExternalLink className="w-5 h-5 text-white" />
-            </a>
-          )}
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-[#1e293b] backdrop-blur-sm rounded-lg border border-white/10 hover:bg-[#1e293b]/90 transition-colors"
-            >
-              <Github className="w-5 h-5 text-white" />
-            </a>
-          )}
-
-        </motion.div>
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="text-2xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-accent text-sm mb-3">{project.role}</p>
-        <p className="text-foreground/80 mb-4 leading-relaxed">
-          {project.description}
-        </p>
-
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2">
-          {project.technologies.map((tech: string) => (
-            <span
-              key={tech}
-              className="px-3 py-1 bg-foreground/5 border border-border rounded-full text-sm text-foreground/80"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* 3D Effect Overlay */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-primary/0 via-accent/0 to-primary/0 pointer-events-none"
-        style={{
-          background: "var(--primary)",
-          opacity: isHovered ? 0.1 : 0,
-        }}
-        transition={{ duration: 0.4 }}
-      />
-    </motion.div>
-  );
-}
 const projects = [
   {
     id: 1,
@@ -324,6 +223,107 @@ const projects = [
     liveUrl: "https://www.reccopilot.com/"
   }
 ];
+
+function ProjectCard({ project, index }: { project: any; index: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="group relative bg-gradient-to-br from-surface/5 to-surface/[0.02] backdrop-blur-sm rounded-2xl overflow-hidden border border-border hover:border-foreground/20 transition-all"
+    >
+      {/* Image Container */}
+      <div className="relative h-64 overflow-hidden">
+        <motion.div
+          animate={{ scale: isHovered ? 1.1 : 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <ImageWithFallback
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+
+        {/* Category Badge */}
+        <div className="absolute top-4 right-4">
+          <span className="px-3 py-1 bg-[#0d9488] backdrop-blur-sm rounded-full border border-white/10 text-sm text-white">
+            {project.category === "professional" ? "Professional" : "Personal"}
+          </span>
+        </div>
+
+        {/* Quick Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
+          className="absolute top-4 left-4 flex gap-2"
+        >
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 bg-[#1e293b] backdrop-blur-sm rounded-lg border border-white/10 hover:bg-[#1e293b]/90 transition-colors"
+            >
+              <ExternalLink className="w-5 h-5 text-white" />
+            </a>
+          )}
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 bg-[#1e293b] backdrop-blur-sm rounded-lg border border-white/10 hover:bg-[#1e293b]/90 transition-colors"
+            >
+              <Github className="w-5 h-5 text-white" />
+            </a>
+          )}
+
+        </motion.div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <h3 className="text-2xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-accent text-sm mb-3">{project.role}</p>
+        <p className="text-foreground/80 mb-4 leading-relaxed">
+          {project.description}
+        </p>
+
+        {/* Technologies */}
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech: string) => (
+            <span
+              key={tech}
+              className="px-3 py-1 bg-foreground/5 border border-border rounded-full text-sm text-foreground/80"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* 3D Effect Overlay */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-primary/0 via-accent/0 to-primary/0 pointer-events-none"
+        style={{
+          background: "var(--primary)",
+          opacity: isHovered ? 0.1 : 0,
+        }}
+        transition={{ duration: 0.4 }}
+      />
+    </motion.div>
+  );
+}
+
 
 export function Portfolio() {
   const ref = useRef(null);

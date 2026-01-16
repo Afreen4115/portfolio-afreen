@@ -1,9 +1,8 @@
-"use client"
-import { motion, useInView } from "motion/react";
-import { useRef, useState } from "react";
+import React, { useState } from "react";
+import { motion } from "motion/react";
 import { ExternalLink, Github, Filter } from "lucide-react";
+// Ensure this path is correct in your project, or swap with a standard <img> tag
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import React from "react";
 
 const projects = [
   {
@@ -231,8 +230,8 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: index * 0.05, duration: 0.5 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       className="group relative bg-gradient-to-br from-surface/5 to-surface/[0.02] backdrop-blur-sm rounded-2xl overflow-hidden border border-border hover:border-foreground/20 transition-all"
@@ -284,7 +283,6 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
               <Github className="w-5 h-5 text-white" />
             </a>
           )}
-
         </motion.div>
       </div>
 
@@ -324,13 +322,8 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
   );
 }
 
-
 export function Portfolio() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [filter, setFilter] = useState<"all" | "professional" | "personal" | "team">(
-    "all"
-  );
+  const [filter, setFilter] = useState<"all" | "professional" | "personal" | "team">("all");
 
   const filteredProjects =
     filter === "all" ? projects : projects.filter((p) => p.category === filter);
@@ -340,56 +333,53 @@ export function Portfolio() {
       id="portfolio"
       className="relative py-32 bg-gradient-to-b from-background to-surface overflow-hidden"
     >
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
+      <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[linear-gradient(var(--primary)/0.1_1px,transparent_1px),linear-gradient(90deg,var(--primary)/0.1_1px,transparent_1px)] bg-[size:50px_50px]" />
       </div>
 
-      <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        {/* HEADING SECTION */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
           <motion.h2
-            className="mb-4 bg-clip-text text-transparent"
-            style={{
-              fontSize: "3.5rem",
-              fontWeight: 700,
-              backgroundImage:
-                "linear-gradient(to right, var(--primary), var(--accent), var(--primary))",
-            }}
+            className="mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
+            style={{ fontSize: "3.5rem", fontWeight: 700 }}
           >
-
             Portfolio
           </motion.h2>
           <motion.p
-            className="text-xl text-foreground/70 max-w-3xl mx-auto"
+            className="text-xl text-muted-foreground max-w-3xl mx-auto"
             initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
             A showcase of professional engineering, distributed systems, and creative full-stack experiments.
           </motion.p>
         </motion.div>
 
+        {/* FILTER BUTTONS */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.5 }}
           className="flex flex-wrap items-center justify-center gap-4 mb-16"
         >
-          <Filter className="w-5 h-5 text-foreground/60" />
-
+          <Filter className="w-5 h-5 text-muted-foreground" />
           {(["all", "professional", "personal", "team"] as const).map((category) => (
             <motion.button
               key={category}
               onClick={() => setFilter(category)}
               className={`px-6 py-2 rounded-lg transition-all ${filter === category
                   ? "bg-gradient-to-r from-primary to-accent text-primary-foreground"
-                  : "bg-foreground/10 text-foreground/70 border border-border hover:text-foreground hover:border-foreground/20"
+                  : "bg-foreground/5 text-muted-foreground hover:text-foreground border border-border hover:border-foreground/20"
                 }`}
-
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -398,6 +388,7 @@ export function Portfolio() {
           ))}
         </motion.div>
 
+        {/* PROJECTS GRID */}
         <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
             <ProjectCard key={`${project.id}-${index}`} project={project} index={index} />

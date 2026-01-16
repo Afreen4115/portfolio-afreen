@@ -366,7 +366,6 @@ export function Portfolio() {
           </motion.p>
         </motion.div>
 
-        {/* Updated Filter Buttons with Team Category */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

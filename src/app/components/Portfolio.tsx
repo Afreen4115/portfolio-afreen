@@ -1,3 +1,4 @@
+"use client"
 import { motion, useInView } from "motion/react";
 import { useRef, useState } from "react";
 import { ExternalLink, Github, Filter } from "lucide-react";
